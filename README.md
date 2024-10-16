@@ -1,8 +1,10 @@
-# Python CRUD Application for [Business Domain]
+# Python CRUD Application for [Pharmacy Clinic]
 
-A comprehensive Python application for managing [Data Entity] data with Create, Read, Update, and Delete (CRUD) operations.
+A comprehensive Python application for managing [Product Stock] data with Create, Read, Update, and Delete (CRUD) operations.
 
 ## Business Understanding
+
+In 2023/2024, the Ministry of Health in Indonesia will implement a new regulation that requires all clinic or similar health facilites to integrate their internal systems with Ministry of Health's centralized system. The system currently used by the clinic, which still uses Microsoft Excel, cannot be easily integrated with the centralized system. Therefore, pharmaceutical clinics need a warehousing program that can be integrated with the central system owned by the Ministry of Health, where python can be an alternative used in this case. 
 
 This project caters to the [Industry/Business Domain] industry, specifically addressing the need to manage [Data Entity] data efficiently. [Data Entity] plays a crucial role in [Explain the importance of data entity in business processes].
 
@@ -15,7 +17,7 @@ This project caters to the [Industry/Business Domain] industry, specifically add
 
 **Target Users:**
 
-This application is designed for [Target Users] (e.g., sales representatives, inventory managers, customer support agents) within the organization to facilitate their [Tasks/Activities] related to [Data Entity].
+This application is designed for Pharmacy and Business Owner within the organization to facilitate their Task and Activities for product stoks related to [Data Entity].
 
 ## Features
 

@@ -39,7 +39,6 @@ This application is designed for Pharmacy and Business Owner within the organiza
     * Provide clear confirmation or error messages based on update success or failure.
 * **Delete Product:**
     * This feature aims to remove products (in the form of medical essentials and/or medicine drugs) whose suppliers are no longer cooperating with pharmacies or clinics.
-    * .
 * **Summary Product Stocks:**
     * This feature aims to provide conclusions to business owners and pharmacists that the availability of stock that needs to be filled for a week / 7 days.
     * So that pharmacists can add stocks that are not available for use in the next week.
@@ -48,19 +47,16 @@ This application is designed for Pharmacy and Business Owner within the organiza
 ## Installation
 
 1. **Prerequisites:**
-    * Python version (specify the required version)
+    * Python version 3.12.5 
     * Prettytables in library
 
 2. **Installation:**
     ```bash
     git clone https://github.com/ratihbudii/python_crudprogram_pharmacy_clinic.git
     cd <python_crudprogram_pharmacy_clinic>
-    pip install -r requirements.txt  # If using a requirements.txt file
     pip install prettytable # For table in show product list and summary product stocks feature
     ```
 
-3. **Database Setup (if applicable):**
-    Follow specific instructions for configuring your database connection, aligning with the business's chosen database management system.
 
 ## Usage
 
@@ -70,18 +66,18 @@ This application is designed for Pharmacy and Business Owner within the organiza
     ```
 
 2. **CRUD Operations:**
-    * **Show Product:** Showing all Product, include Product ID, Medicine Name, Stock, Price, Supplier Name.
-    * **Add Product:** Add a new Product record, for example, a new product in a product stocks systems, 
-    * **Create:** Add a new [Data Entity] record, for example, a new customer in a customer management system, providing details like name, contact information, and preferences.
-    * **Read:** Search and retrieve customer information by name, ID, or other relevant criteria.
-    * **Update:** Modify customer details, such as updating their address or contact details.
-    * **Delete:** Remove a customer record from the system (with appropriate authorization, if applicable).
+    * **Create:** Add a new Product record, for example, a new Product Medicine in a Product Medicine management system, providing details like Product ID, Medicine Name, Stock, Price, Supplier Name.
+    * **Read:** Retrieve product information by Product ID, Medicine Name, Stock, Price, Supplier Name.
+    * **Update:** Modify product information and or product stocks.
+    * **Delete:** Remove a product record from the system.
 
 ## Data Model
-This project utilizes a [Data Structure] (e.g., relational database, JSON documents) to represent [Data Entity] data. The following fields are typically stored:
-   * [Field 1]: (Data type) - Description of the field's purpose in the business context.
-   * [Field 2]: (Data type) - Description of the field's purpose in the business context.
-   * ... (List all relevant fields)
+This project utilizes a Dictionary to represent Product data. The following fields are typically stored:
+   * Product ID: String - ID of product
+   * Medicine Name: String - Name of the medicine
+   * Stock: Integer - Stock of the product
+   * Price: Integer - Price of the product
+   * Supplier Name: String - Name of the supplier
 
 ## Contributing
 We welcome contributions to this project! Please feel free to open a pull request, sent to ratih.budi97@gmail.com or submit an issue if you encounter any problems or have suggestions for improvements.

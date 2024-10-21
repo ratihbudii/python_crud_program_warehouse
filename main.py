@@ -108,8 +108,10 @@ def edit_product():
       print("Product is found")
       update_medicine_name = input("Enter new medicine name: ")
       update_medicine_price = input("Enter new price: ")
+      update_medicine_supplier_name = input("Enter new supplier name: ")
       product.update({"Medicine Name": update_medicine_name})
       product.update({"Price": update_medicine_price})
+      product.update({"Supplier Name": update_medicine_supplier_name})
       print("Successfully updated " + search_medicine_name + " into " + update_medicine_name)
       isfound = True
       break 
@@ -159,7 +161,7 @@ def delete_product():
   search_medicine_product_id = input("Enter Product ID: ")
   search_medicine_name = input("Enter medicine name: ")
   for product in list_product :
-    if product["Medicine Name"] == search_medicine_name:
+    if product["Product ID"] == search_medicine_product_id and product["Medicine Name"] == search_medicine_name:
       print("Product is found")
       delete_product_confirmation = input("Do you want to delete this product? (yes or not): ") # kalo sad flow alias kalo salah entry terus perulangan piye? -> backlog
       while delete_product_confirmation != "yes" and delete_product_confirmation != "not":

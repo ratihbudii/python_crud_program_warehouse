@@ -128,7 +128,7 @@ def update_product_stocks():
     if product["Product ID"] == search_medicine_product_id and product["Medicine Name"] == search_medicine_name :
       print("Product is found")
       current_stocks = product["Stock"]
-      update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ") # kalo sad flow alias kalo salah entry terus perulangan piye? -> backlog
+      update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ") 
       while update_stocks_confirmation != "1" and update_stocks_confirmation != "2":
         print("Wrong input. Try again")
         update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
@@ -163,7 +163,7 @@ def delete_product():
   for product in list_product :
     if product["Product ID"] == search_medicine_product_id and product["Medicine Name"] == search_medicine_name:
       print("Product is found")
-      delete_product_confirmation = input("Do you want to delete this product? (yes or not): ") # kalo sad flow alias kalo salah entry terus perulangan piye? -> backlog
+      delete_product_confirmation = input("Do you want to delete this product? (yes or not): ")
       while delete_product_confirmation != "yes" and delete_product_confirmation != "not":
         print("Wrong input. Try again")
         delete_product_confirmation = input("Do you want to delete this product? (yes or not): ")

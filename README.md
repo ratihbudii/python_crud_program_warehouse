@@ -70,6 +70,8 @@ This application is designed for Pharmacy and Business Owner within the organiza
     ```
 
 2. **CRUD Operations:**
+    * **Show Product:** Showing all Product, include Product ID, Medicine Name, Stock, Price, Supplier Name.
+    * **Add Product:** Add a new Product record, for example, a new product in a product stocks systems, 
     * **Create:** Add a new [Data Entity] record, for example, a new customer in a customer management system, providing details like name, contact information, and preferences.
     * **Read:** Search and retrieve customer information by name, ID, or other relevant criteria.
     * **Update:** Modify customer details, such as updating their address or contact details.
@@ -82,5 +84,5 @@ This project utilizes a [Data Structure] (e.g., relational database, JSON docume
    * ... (List all relevant fields)
 
 ## Contributing
-We welcome contributions to this project! Please feel free to open a pull request, sent to [your_email] or submit an issue if you encounter any problems or have suggestions for improvements.
+We welcome contributions to this project! Please feel free to open a pull request, sent to ratih.budi97@gmail.com or submit an issue if you encounter any problems or have suggestions for improvements.
 

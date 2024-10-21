@@ -4,16 +4,15 @@ A comprehensive Python application for managing Product Stock data with Create, 
 
 ## Business Understanding
 
-In 2023/2024, the Ministry of Health in Indonesia will implement a new regulation that requires all clinic or similar health facilites to integrate their internal systems with Ministry of Health's centralized system. The system currently used by the clinic, which still uses Microsoft Excel, cannot be easily integrated with the centralized system. Therefore, pharmaceutical clinics need a warehousing program that can be integrated with the central system owned by the Ministry of Health, where python can be an alternative used in this case. 
+This clinic operates a pharmacy unit with two main stakeholders: the clinic owner and the pharmacist. In 2022, the Ministry of Health (Kemenkes) introduced a new regulation that requires all clinics and similar healthcare facilities to integrate their internal systems with the centralized system of the Ministry, known as SATUSEHAT. The current system used by the clinic, which relies on Microsoft Excel, cannot easily integrate with the centralized system.
 
-This project caters to the [Industry/Business Domain] industry, specifically addressing the need to manage [Data Entity] data efficiently. [Data Entity] plays a crucial role in [Explain the importance of data entity in business processes].
+As a solution, the clinic’s pharmacy needs a warehouse management program that can be seamlessly integrated with SATUSEHAT, ensuring that drug inventory data can be recorded and reported automatically in compliance with Kemenkes' standards. In this case, using Python as the development platform offers a viable alternative due to its flexibility and ability to build integrated systems.
 
 **Benefits:**
 
-* Improved data accuracy and consistency
+* Improved stock accuracy: Real-time product data reduces discrepancies and ensures informed decision-making.
 * Streamlined data management processes
 * Enhanced decision-making through readily available data
-* ... (List additional benefits relevant to the business)
 
 **Target Users:**
 
@@ -40,9 +39,10 @@ This application is designed for Pharmacy and Business Owner within the organiza
 * **Delete Product:**
     * This feature aims to remove products (in the form of medical essentials and/or medicine drugs) whose suppliers are no longer cooperating with pharmacies or clinics.
 * **Summary Product Stocks:**
-    * This feature aims to provide conclusions to business owners and pharmacists that the availability of stock that needs to be filled for a week / 7 days.
-    * So that pharmacists can add stocks that are not available for use in the next week.
-    * This feature can also be used as material for decision-making (sek buntu :" )
+    * This feature aims to provide conclusions to clinic owners and pharmacists that the availability of stock unit that needs to be filled within a week (7 days).
+    * This feature also designed to assist pharmacists and clinic owners in monitoring their product inventory, allowing them to determine which products need to be restocked for the upcoming week.
+    * This feature provides a clear and concise summary of low-stock products, serving as a valuable resource for decision-making in restocking. 
+    * By utilizing this feature, pharmacies can maintain optimal product availability and avoid stock shortages.
 
 ## Installation
 

@@ -6,12 +6,12 @@ A comprehensive Python application for managing Product Stock data with Create, 
 
 This clinic operates a pharmacy unit with two main stakeholders: the clinic owner and the pharmacist. In 2023, the Ministry of Health (Kemenkes) introduced a new regulation that requires all clinics and similar healthcare facilities to integrate their internal systems with the centralized system of the Ministry, known as SATUSEHAT. The current system used by the clinic, which relies on Microsoft Excel, cannot easily integrate with the centralized system.
 
-As a solution, the clinic’s pharmacy needs a warehouse management program that can be seamlessly integrated with SATUSEHAT, ensuring that drug inventory data can be recorded and reported automatically in compliance with Kemenkes' standards. In this case, using Python as the development platform offers a viable alternative due to its flexibility and ability to build integrated systems.
+As a solution, the clinic’s pharmacy needs a warehouse management program that can be seamlessly integrated with SATUSEHAT, ensuring that medicine inventory data can be recorded and reported automatically in compliance with Kemenkes' standards. In this case, using Python as the development platform offers a viable alternative due to its flexibility and ability to build integrated systems.
 
 **Benefits:**
 
-* The accuracy of stock products is always updated at any time when there is an inbound or outbound stocks so that it can be used as material for decision-making
-* Monitor product stock management
+* One of the differentiators in the interface is input validation and error handling, which can improve data quality
+* The implementation of product inventory using programs, rather than excel, also opens up the possibility of integration with other systems, e.g., databases or systems/APIs from the Ministry of Health
 
 **Target Users:**
 

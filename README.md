@@ -1,6 +1,6 @@
-# Python CRUD Application for [Pharmacy Clinic]
+# Python CRUD Application for Pharmacy Clinic
 
-A comprehensive Python application for managing [Product Stock] data with Create, Read, Update, and Delete (CRUD) operations.
+A comprehensive Python application for managing Product Stock data with Create, Read, Update, and Delete (CRUD) operations.
 
 ## Business Understanding
 
@@ -17,36 +17,39 @@ This project caters to the [Industry/Business Domain] industry, specifically add
 
 **Target Users:**
 
-This application is designed for Pharmacy and Business Owner within the organization to facilitate their Task and Activities for product stoks related to [Data Entity].
+This application is designed for Pharmacy and Business Owner within the organization to facilitate their Task and Activities related to medicine product and medicine product stocks.
 
 ## Features
 
-* **Create:**
-    * Add new [Data Entity] entries with essential details like [List relevant fields].
-    * Implement validation rules to ensure data integrity (if applicable, e.g., unique identifiers, data type checks).
-* **Read:**
-    * Search and retrieve specific [Data Entity] records by applying filters based on [Searchable fields].
-    * Display comprehensive information for each [Data Entity] in a user-friendly format.
-    * Integrate pagination and sorting capabilities for large datasets (if applicable).
-* **Update:**
-    * Modify existing [Data Entity] data to reflect changes in [Attributes/Properties].
+* **Show Product:**
+    * Display the Product IDs, Product Names, Product Stocks, Price of Products, and Supplier Names we work with.
+    * User-friendly format
+* **Add Product:**
+    * Add new Product (it can be a medical essentials or medicine drugs) entries with essential details like
+      [Product ID, Product Name, Product Stocks, Product Price, Product Supplier Name].
+    * User-friendly format
+* **Edit Product:**
+    * Edit data such as product name and price if there is a typo when entering additional product data in the "add product" feature.
+    * The product ID will not be replaced because it must be set when adding a product in the "add product" feature. 
+    * User-friendly format.
     * Provide clear confirmation or error messages based on update success or failure.
-* **Delete:**
-    * Allow for the removal of unwanted [Data Entity] records with appropriate authorization checks (if applicable).
-    * Implement soft delete functionality to prevent permanent data loss (optional, depending on business needs).
-    * Consider offering data archiving capabilities (optional).
-* **Security:**
-    * Implement user authentication and authorization mechanisms (if sensitive data is involved) to control access to different CRUD operations.
-    * ... (Specify additional security features as needed)
-* **Reporting:**
-    * Generate reports or summaries based on [Data Entity] data to support [Business Functions] (optional).
-    * Export data in various formats (e.g., CSV, Excel) for further analysis (optional).
+* **Update Product:**
+    * Modify existing Product Stocks data to reflect changes in available stocks.
+    * Stock will automatically be updated when there is an inbound stocks and or outbound stocks.
+    * Provide clear confirmation or error messages based on update success or failure.
+* **Delete Product:**
+    * This feature aims to remove products (in the form of medical essentials and/or medicine drugs) whose suppliers are no longer cooperating with pharmacies or clinics.
+    * .
+* **Summary Product Stocks:**
+    * This feature aims to provide conclusions to business owners and pharmacists that the availability of stock that needs to be filled for a week / 7 days.
+    * So that pharmacists can add stocks that are not available for use in the next week.
+    * This feature can also be used as material for decision-making (sek buntu :" )
 
 ## Installation
 
 1. **Prerequisites:**
     * Python version (specify the required version)
-    * Additional dependencies (list any required packages)
+    * Prettytables in library
 
 2. **Installation:**
     ```bash

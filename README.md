@@ -53,9 +53,10 @@ This application is designed for Pharmacy and Business Owner within the organiza
 
 2. **Installation:**
     ```bash
-    git clone https://github.com/<your-username>/<your-repo-name>.git
-    cd <your-repo-name>
+    git clone https://github.com/ratihbudii/python_crudprogram_pharmacy_clinic.git
+    cd <python_crudprogram_pharmacy_clinic>
     pip install -r requirements.txt  # If using a requirements.txt file
+    pip install prettytable # For table in show product list and summary product stocks feature
     ```
 
 3. **Database Setup (if applicable):**

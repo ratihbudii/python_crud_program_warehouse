@@ -4,9 +4,11 @@ A comprehensive Python application for managing Product Stock data with Create, 
 
 ## Business Understanding
 
-This clinic operates a pharmacy unit with two main stakeholders: the clinic owner and the pharmacist. In 2023, the Ministry of Health (Kemenkes) introduced a new regulation that requires all clinics and similar healthcare facilities to integrate their internal systems with the centralized system of the Ministry, known as SATUSEHAT. The current system used by the clinic, which relies on Microsoft Excel, cannot easily integrate with the centralized system.
+This clinic operates a pharmacy unit with two main stakeholders: the clinic owner and the pharmacist. In 2023, the Ministry of Health (Kemenkes) introduced a new regulation that requires all clinics and similar healthcare facilities to report their operational data to a centralized national system, known as SatuSehat, with inventory data being one of the information that needs to be reported.
 
-As a solution, the clinic’s pharmacy needs a warehouse management program that can be seamlessly integrated with SATUSEHAT, ensuring that medicine inventory data can be recorded and reported automatically in compliance with Kemenkes' standards. In this case, using Python as the development platform offers a viable alternative due to its flexibility and ability to build integrated systems.
+The current system used by the clinic relies on Microsoft Excel, thus, integrating it with the centralized system proves to be a challenge. Next to that, for administrative and statistics purposes, the ministry demands that the inventory data needs to be reported in accordance to the standards and qualities set by the ministry, being data completeness as one of those qualities.
+
+Therefore, the clinic’s pharmacy needs a warehouse management program that can be seamlessly integrated with SatuSehat, ensuring that medicine inventory data can be recorded and reported automatically as well as in compliance with the regulation. Python, as one of the prominent development platform, serves as a viable alternative for this purpose due to its flexibility and ability to implement integration and validation rules.
 
 **Benefits:**
 

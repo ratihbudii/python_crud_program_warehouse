@@ -1,8 +1,8 @@
 # ===================================
-# [Your Program Title]
+# [Clinical Pharmacy]
 # ===================================
-# Developed by. [Enter your name]
-# JCDS - [Class Batch]
+# Developed by. [Ratih Budi Setyorini]
+# JCDS - [0412]
 
 
 # /************************************/
@@ -57,7 +57,6 @@ list_product = [product1, product2, product3, product4, product5]
 # /===== End Data Model =====/
 
 # /===== Feature Program =====/
-# Create your feature program here
 # Show Product and Product Stock Feature
 def print_list_product():
   print("Show Product and Product Stocks")

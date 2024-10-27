@@ -47,6 +47,7 @@ e = column_names[4]
 
 from prettytable import PrettyTable
 
+# Show List Product Feature
 def print_list_product():
    print("Show Product and Product Stocks")
    list_prod_table = PrettyTable([a, b, c, d, e])
@@ -58,6 +59,30 @@ def print_list_product():
 
 print_list_product()
 
+# Validate Supplier
+def validate_supplier(conn, supplierId):
+    myCursor = conn.cursor()
+    myCursor.execute("SELECT * FROM Supplier WHERE supplierId = '"+ supplierId +"'") #petik 1 buat spesifik query, utk cut string supaya bisa di concat pake petik 2, concat pake + var / nilai yg mau di concat, ditutup lagi pake + terus petik 2 sama petik 1 
+    supplier = myCursor.fetchall()
+    return supplier
+
+# Add Supplier 
+def add_new_supplier(conn):
+    print("Add New Supplier")
+    new_supplier_id = input("Enter new supplier ID: ")
+    new_supplier_name = input("Enter new supplier name: ")
+    new_supplier_address = input("Enter new supplier address: ")
+
+    insert_supplier_query = """
+    INSERT INTO supplier (supplierID, supplierName, supplierAddress)
+    VALUES (%s, %s, %s)
+    """
+
+    cursor = conn.cursor()
+    cursor.execute(insert_supplier_query, (new_supplier_id, new_supplier_name, new_supplier_address))
+    conn.commit()
+    print("Successfully created new supplier:", new_supplier_name)
+              
 # Add Product Feature
 def add_new_product_to_db(conn):
   isiteratestock = True
@@ -79,15 +104,56 @@ def add_new_product_to_db(conn):
       break
     except ValueError:
       print("Invalid input. Please enter a valid new stock in integer.")
-  new_medicine_supplier_name = input("Enter new supplier name: ")
-  insert_query = """
-  INSERT INTO Product (product_id, medicine_name, stock, price, supplier_name)
-  VALUES (%s, %s, %s, %s, %s)
-  """ # SQL INSERT query
-  cursor = conn.cursor()
-  cursor.execute(insert_query, (new_medicine_product_id, new_medicine_name, new_medicine_stock, new_medicine_price, new_medicine_supplier_name))
-  conn.commit()
-  print("Successfully created " + new_medicine_name) # Execute the query with the new product data
+  new_medicine_supplier_id = input("Enter new supplier ID: ")
+  supplier = validate_supplier(conn, new_medicine_supplier_id)
+  if len(supplier) == 1:
+      insert_query = """
+      INSERT INTO Product (productID, productName, productStock, productPrice, supplierID)
+      VALUES (%s, %s, %s, %s, %s)
+      """ # SQL INSERT query
+      cursor = conn.cursor()
+      cursor.execute(insert_query, (new_medicine_product_id, new_medicine_name, new_medicine_stock, new_medicine_price, new_medicine_supplier_id))
+      conn.commit()
+      print("Successfully created " + new_medicine_name) # Execute the query with the new product data
+  else:
+      print("Supplier not found. Please add supplier first")
+      add_new_supplier(conn)
 
 add_new_product_to_db(conn)
+
+# Edit Product Name and Product Price Feature
+def edit_product(conn):
+  isfound = False
+  print("Edit Product")
+  search_medicine_product_id = input("Enter Product ID: ")
+  search_medicine_name = input("Enter medicine name: ")
+  # SQL SELECT query to find the product
+  select_query = """
+  SELECT * FROM Product
+  WHERE productId = %s AND productName = %s
+  """
+  # SQL UPDATE query to update the product
+  update_query = """
+  UPDATE Product
+  SET productName = %s, productPrice = %s
+  WHERE productId = %s AND productName = %s
+  """
+
+  cursor = conn.cursor()
+  cursor.execute(select_query, (search_medicine_product_id, search_medicine_name))
+  result = cursor.fetchone()
+  if result :
+    isfound = True
+    update_medicine_name = input("Enter new medicine name: ")
+    update_medicine_price = input("Enter new price: ")
+
+    cursor.execute(update_query, (update_medicine_name, update_medicine_price, search_medicine_product_id, search_medicine_name))
+    conn.commit()
+    print("Successfully updated " + search_medicine_name + " into " + update_medicine_name)
+  else:
+     print("Product is not found")
+
+edit_product(conn)
+
+
 

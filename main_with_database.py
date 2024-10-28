@@ -1,4 +1,5 @@
 import mysql.connector
+import uuid
 
 def create_connection(db:str):
     """Connect to MySql Database
@@ -56,13 +57,12 @@ def print_list_product():
     print(product)
    print(list_prod_table)
    
-
 print_list_product()
 
 # Validate Supplier
-def validate_supplier(conn, supplierId):
+def validate_supplier(conn, supplierID):
     myCursor = conn.cursor()
-    myCursor.execute("SELECT * FROM Supplier WHERE supplierId = '"+ supplierId +"'") #petik 1 buat spesifik query, utk cut string supaya bisa di concat pake petik 2, concat pake + var / nilai yg mau di concat, ditutup lagi pake + terus petik 2 sama petik 1 
+    myCursor.execute("SELECT * FROM Supplier WHERE supplierID = '"+ supplierID +"'") #petik 1 buat spesifik query, utk cut string supaya bisa di concat pake petik 2, concat pake + var / nilai yg mau di concat, ditutup lagi pake + terus petik 2 sama petik 1 
     supplier = myCursor.fetchall()
     return supplier
 
@@ -103,7 +103,7 @@ def add_new_product_to_db(conn):
       isiterateprice = False
       break
     except ValueError:
-      print("Invalid input. Please enter a valid new stock in integer.")
+      print("Invalid input. Please enter a valid new price in integer.")
   new_medicine_supplier_id = input("Enter new supplier ID: ")
   supplier = validate_supplier(conn, new_medicine_supplier_id)
   if len(supplier) == 1:
@@ -130,13 +130,13 @@ def edit_product(conn):
   # SQL SELECT query to find the product
   select_query = """
   SELECT * FROM Product
-  WHERE productId = %s AND productName = %s
+  WHERE productID = %s AND productName = %s
   """
   # SQL UPDATE query to update the product
   update_query = """
   UPDATE Product
   SET productName = %s, productPrice = %s
-  WHERE productId = %s AND productName = %s
+  WHERE productID = %s AND productName = %s
   """
 
   cursor = conn.cursor()
@@ -155,135 +155,114 @@ def edit_product(conn):
 
 edit_product(conn)
 
+
 # Update Product Stocks Feature 
-def update_product_stocks(conn):
-  isiteratestock = True
-  isiterateprice = True
-  print("Update Product Stocks")
-  search_medicine_product_id = input("Enter Product ID: ")
-  # SQL SELECT query to find the product
-  select_product_query = """
-  SELECT * FROM Stock
-  WHERE productId = %s
-  """
-  cursor = conn.cursor()
-  cursor.execute(select_product_query, (search_medicine_product_id))
-  result = cursor.fetchone()
-  if result:
-    isfound = True
-    productId = result[2]
-    print("Product is found")
-    current_stocks = result[0]  # Assuming amount is at index 0
-    update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
-    while update_stocks_confirmation not in ["1", "2"]:
-      print("Wrong input. Try again")
-      update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
-      if update_stocks_confirmation == "1":
-        inbound_medicine_stocks = int(input("Enter inbound medicine stocks: "))
-        new_stock = current_stocks + inbound_medicine_stocks
-        update_stock_query = """
-        UPDATE Stock
-        SET amount = %s
-        WHERE productId = %s
-        """
-        cursor.execute(update_stock_query, (new_stock, productId))
-        conn.commit()
-        print("Successfully updated " + search_medicine_name + " stocks into " + str(new_stock))
-
-
-  while isiteratestock == True:
-    try:
-      new_medicine_stock = int(input("Enter new stock: "))
-      isiteratestock = False
-      break
-    except ValueError:
-      print("Invalid input. Please enter a valid new stock in integer.")
-  supplier = validate_supplier(conn, new_medicine_supplier_id)
-  if len(supplier) == 1:
-      insert_query = """
-      INSERT INTO Product (productID, productName, productStock, productPrice, supplierID)
-      VALUES (%s, %s, %s, %s, %s)
-      """ # SQL INSERT query
-      cursor = conn.cursor()
-      cursor.execute(insert_query, (new_medicine_product_id, new_medicine_name, new_medicine_stock, new_medicine_price, new_medicine_supplier_id))
-      conn.commit()
-      print("Successfully created " + new_medicine_name) # Execute the query with the new product data
-  else:
-      print("Supplier not found. Please add supplier first")
-      add_new_supplier(conn)
-
-add_new_product_to_db(conn)
-
-
-
-
-
-
-
-
-
 def update_product_stocks(conn):
   isfound = False
   print("Update Product Stocks")
   search_medicine_product_id = input("Enter Product ID: ")
-  search_medicine_name = input("Enter medicine name: ")
-
   # SQL SELECT query to find the product
   select_product_query = """
   SELECT * FROM Product
-  WHERE productId = %s AND productName = %s
+  WHERE productID = %s
+  """
+  cursor = conn.cursor()
+  cursor.execute(select_product_query, (search_medicine_product_id,))
+  result = cursor.fetchone()
+  cursor.close()
+  if result:
+    isfound = True
+    productID = result[3]
+    print("Product is found")
+    update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
+    while update_stocks_confirmation not in ["1", "2"]:
+      print("Wrong input. Try again")
+      update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
+    if update_stocks_confirmation == "1":
+      inbound_medicine_stocks = int(input("Enter inbound medicine stocks: "))
+      stock_id = str(uuid.uuid4())
+      insert_stock_query = """
+      INSERT INTO Stock (amount, stockID, productID)
+      VALUES (%s, %s, %s)
+      """
+      cursor = conn.cursor()
+      cursor.execute(insert_stock_query, (inbound_medicine_stocks, stock_id, productID))
+      conn.commit()
+      print("Successfully added " + search_medicine_product_id + " inbound stocks ")
+    elif update_stocks_confirmation == "2":
+      outbound_medicine_stocks = int(input("Enter outbound medicine stocks: "))
+      stock_id = str(uuid.uuid4())
+      insert_stock_query = """
+      INSERT INTO Stock (amount, stockID, productID)
+      VALUES (%s, %s, %s)
+      """
+      cursor = conn.cursor()
+      cursor.execute(insert_stock_query, (outbound_medicine_stocks, stock_id, productID))
+      conn.commit()
+      print("Successfully added " + search_medicine_product_id + " outbound stocks ")
+  else :
+    print("Product not found.")
+
+update_product_stocks(conn)
+
+# Delete Product Feature
+def delete_product(conn):
+  isfound = False
+  print("Delete Product")
+  search_medicine_product_id = input("Enter Product ID: ")
+  search_medicine_name = input("Enter medicine name: ")
+
+  # SQL SELECT query to find the product
+  select_query = """
+  SELECT * FROM Product
+  WHERE productID = %s AND productName = %s
+  """
+
+  # SQL DELETE query to delete the stock
+  delete_stock_query = """
+  DELETE FROM Stock
+  WHERE productID = %s
+  """
+
+  # SQL DELETE query to delete the product
+  delete_query = """
+  DELETE FROM Product
+  WHERE productID = %s
   """
 
   cursor = conn.cursor()
-  cursor.execute(select_product_query, (search_medicine_product_id, search_medicine_name))
+  cursor.execute(select_query, (search_medicine_product_id, search_medicine_name))
   result = cursor.fetchone()
 
   if result:
     isfound = True
-    productId = result[3]
-    # SQL SELECT query to get the current amount from the Stock table
-    select_stock_query = """
-    SELECT amount 
-    FROM Stock 
-    WHERE productId = %s
-    """
-    cursor.execute(select_stock_query, (productId))
-    stock_result = cursor.fetchone()
-    if stock_result:
-      current_stocks = stock_result[0]  # Assuming amount is at index 0
-      update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
-      while update_stocks_confirmation not in ["1", "2"]:
-        print("Wrong input. Try again")
-        update_stocks_confirmation = input("What do you want to do? (1. Inbound stocks or 2. Outbound stocks): ")
-        if update_stocks_confirmation == "1":
-          inbound_medicine_stocks = int(input("Enter inbound medicine stocks: "))
-          new_stock = current_stocks + inbound_medicine_stocks
-          update_stock_query = """
-          UPDATE Stock
-          SET amount = %s
-          WHERE productId = %s
-          """
-          cursor.execute(update_stock_query, (new_stock, productId))
-          conn.commit()
-          print("Successfully updated " + search_medicine_name + " stocks into " + str(new_stock))
-        elif update_stocks_confirmation == "2":
-          outbound_medicine_stocks = int(input("Enter outbound medicine stocks: "))
-          new_stock = current_stocks - outbound_medicine_stocks
-          update_stock_query = """
-          UPDATE Stock
-          SET amount = %s
-          WHERE productId = %s
-          """
-          cursor.execute(update_stock_query, (new_stock, productId))
-          conn.commit()
-          print("Successfully updated " + search_medicine_name + " stocks into " + str(new_stock))
-    else:
-      print("Stock record not found for the product.")
-  else:
-     print("Product not found.")
+    delete_product_confirmation = input("Do you want to delete this product? (yes or not): ")
+    while delete_product_confirmation not in ["yes", "not"]:
+      print("Wrong input. Try again")
+      delete_product_confirmation = input("Do you want to delete this product? (yes or not): ")
+    if delete_product_confirmation == "yes":
+      cursor.execute(delete_stock_query,(search_medicine_product_id,))
+      conn.commit()
+      cursor.execute(delete_query, (search_medicine_product_id,))
+      conn.commit()
+      print("This product is deleted.")
+    elif delete_product_confirmation == "not":
+      print("This product is not deleted.")
 
-update_product_stocks(conn)
+delete_product(conn)
 
 
 
 
+
+# /===== Start to main program =====/
+def print_menu():
+    print(40 * "-", "Farmacy Clinic TongFunk", 40 * "-")
+    print("1. Show Product Stocks ")
+    print("2. Add Product ")
+    print("3. Edit Product ")
+    print("4. Update Product Stocks ")
+    print("5. Delete Product ")
+    print("6. Summary Product Stocks ") # Top 3 Current Product and Product Stocks for a week
+    print("7. Exit from the menu ")
+    print(73 * "-")

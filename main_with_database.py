@@ -1,7 +1,18 @@
+# ===================================
+# [Clinical Pharmacy]
+# ===================================
+# Developed by. [Ratih Budi Setyorini]
+# JCDS - [0412]
+
+
+# /************************************/
+
+# /===== Importing Libraries =====/
 import mysql.connector
 import uuid
 from prettytable import PrettyTable
 
+#  /===== Connect to Database =====/
 def create_connection(db:str):
     """Connect to MySql Database
     Args:
@@ -31,32 +42,20 @@ def execute_query(conn:object, query:str):
     # 4. Fetch data
     return myCursor.fetchall(), myCursor.column_names # ngambil nama nama kolom dalam tabelnya (column_names)
 
-# Show pharmacy data
-conn = create_connection("pharmacy_clinic")
-query = "SELECT * FROM Product"
-data, column_names = execute_query(conn, query)
 
-print(column_names)
-print(data)
-print(data[0][3])
-
-a = column_names[0]
-b = column_names[1]
-c = column_names[2]
-d = column_names[3]
-e = column_names[4]
-
+# /===== Feature Program =====/
 
 # Show List Product Feature
 def print_list_product():
-   print("Show Product and Product Stocks")
-   list_prod_table = PrettyTable([a, b, c, d, e])
-   for product in data :
+  print("Show Product and Product Stocks")
+  myCursor = conn.cursor()
+  myCursor.execute("SELECT * FROM Product")
+  list_product = myCursor.fetchall()
+  list_prod_table = PrettyTable(['productName','productStock','productPrice','productID','supplierID'])
+  for product in list_product :
     list_prod_table.add_row([product[0], product[1], product[2], product[3], product[4]])
-    print(product)
-   print(list_prod_table)
+  print(list_prod_table)
    
-print_list_product()
 
 # Validate Supplier
 def validate_supplier(conn, supplierID):
@@ -118,8 +117,6 @@ def add_new_product_to_db(conn):
       print("Supplier not found. Please add supplier first")
       add_new_supplier(conn)
 
-add_new_product_to_db(conn)
-
 # Edit Product Name and Product Price Feature
 def edit_product(conn):
   isfound = False
@@ -151,8 +148,6 @@ def edit_product(conn):
     print("Successfully updated " + search_medicine_name + " into " + update_medicine_name)
   else:
      print("Product is not found")
-
-edit_product(conn)
 
 
 # Update Product Stocks Feature 
@@ -202,7 +197,6 @@ def update_product_stocks(conn):
   else :
     print("Product not found.")
 
-update_product_stocks(conn)
 
 # Delete Product Feature
 def delete_product(conn):
@@ -248,8 +242,6 @@ def delete_product(conn):
     elif delete_product_confirmation == "not":
       print("This product is not deleted.")
 
-delete_product(conn)
-
 
 # Summary Product Stocks
 def summary_product_stocks(conn):
@@ -272,12 +264,10 @@ def summary_product_stocks(conn):
   list_prod_table = PrettyTable(['amount_stocks', 'productID', 'productName'])
   for product in result :
     list_prod_table.add_row([product[0], product[1], product[2]])
-    print(product)
   print(list_prod_table)
 
-summary_product_stocks(conn)
 
-
+# /===== End of Feature Program =====/
 
 # /===== Start to main program =====/
 
@@ -322,4 +312,6 @@ def input_choice ():
     else :
       print("Wrong input. Try again")
 
+# Show pharmacy data
+conn = create_connection("pharmacy_clinic")
 input_choice()

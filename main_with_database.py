@@ -1,5 +1,6 @@
 import mysql.connector
 import uuid
+from prettytable import PrettyTable
 
 def create_connection(db:str):
     """Connect to MySql Database
@@ -45,8 +46,6 @@ c = column_names[2]
 d = column_names[3]
 e = column_names[4]
 
-
-from prettytable import PrettyTable
 
 # Show List Product Feature
 def print_list_product():
@@ -252,10 +251,36 @@ def delete_product(conn):
 delete_product(conn)
 
 
+# Summary Product Stocks
+def summary_product_stocks(conn):
+  print("Summary Product Stocks")
+  print("Top 3 Current Product and Product Stocks for a week are: ")
+  # SQL SUM, JOIN, Top 3 query to sum the product stocks
+  top_three_query = """
+  SELECT SUM(amount) as amount_stock, s.productID, p.productName
+  FROM stock as s
+  JOIN product as p
+  ON s.productID = p.productID
+  GROUP BY s.productID, p.productName
+  ORDER BY amount_stock desc
+  LIMIT 3;
+  """
+  cursor = conn.cursor()
+  cursor.execute(top_three_query)
+  result = cursor.fetchall()
+
+  list_prod_table = PrettyTable(['amount_stocks', 'productID', 'productName'])
+  for product in result :
+    list_prod_table.add_row([product[0], product[1], product[2]])
+    print(product)
+  print(list_prod_table)
+
+summary_product_stocks(conn)
 
 
 
 # /===== Start to main program =====/
+
 def print_menu():
     print(40 * "-", "Farmacy Clinic TongFunk", 40 * "-")
     print("1. Show Product Stocks ")
@@ -266,3 +291,35 @@ def print_menu():
     print("6. Summary Product Stocks ") # Top 3 Current Product and Product Stocks for a week
     print("7. Exit from the menu ")
     print(73 * "-")
+
+def input_choice ():
+  loop = True
+
+  while loop:
+    print_menu()
+    choice = int(input("Enter your choice [1-7]: "))
+    if choice == 1:
+      print_list_product()
+      loop = True
+    elif choice == 2:
+      add_new_product_to_db(conn)
+      loop = True
+    elif choice == 3:
+      edit_product(conn)
+      loop = True
+    elif choice == 4:
+      update_product_stocks(conn)
+      loop = True
+    elif choice == 5:
+      delete_product(conn)
+      loop = True
+    elif choice == 6:
+      summary_product_stocks(conn)
+      loop = True
+    elif choice == 7:
+      print("Thank you for visit. See you!")
+      loop = False
+    else :
+      print("Wrong input. Try again")
+
+input_choice()
